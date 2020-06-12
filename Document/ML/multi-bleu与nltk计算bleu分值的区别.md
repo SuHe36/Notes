@@ -1,0 +1,1 @@
+1、计算BP时要用到length_translation和length_reference，nltk是单个句子的长度单个计算BP值，而multi-bleu则是所有句子加在一起再最后计算一个总值。

@@ -1,0 +1,6 @@
+# pycharm导入本地python环境
+
+当我们用pycharm新建项目后，我们想这个项目调用本地的python环境。
+
+1. 在终端执行which python，查看本地python包位于哪个位置
+2. 在Pycharm的preferences/project/Project Interpreter/中可以选择Conda Environment或者Virtualenv Environment都可以，主要是要选择Existing environment，然后按照1中得到的python位置导入即可。
