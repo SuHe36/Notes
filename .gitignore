@@ -4,6 +4,7 @@ __pycache__/
 *.pyc
 *.zip
 *.log
+*.rar
 log/
 tmp/
 eval/
