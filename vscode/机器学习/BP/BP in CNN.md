@@ -1,4 +1,6 @@
+#! https://zhuanlan.zhihu.com/p/159189304
 # 在CNN中的反向传播
+此文为[翻译](https://medium.com/@pavisj/convolutions-and-backpropagations-46026a8f5d2c).
 ## 1. 链式法则
 先理解一下在反向传播中的链式法则。
 假设有下面这个等式：
