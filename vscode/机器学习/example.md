@@ -57,13 +57,21 @@ $\begin{vmatrix}
 答案选D
 
 
-4.下面说法不正确的是（）
-- A. SVM是一种判别式模型
-- B. 当采用sigmoid作为激活函数时，输出值可以为-0.2
-- C. 与使用L2正则相比，使用L1正则会使更多的参数为0
-- D. HMM中的维特比算法是一种动态规划算法
+4. 下面说法正确的是（）：
+- A. SVM是一种生成式模型
+- B. 当采用tanh作为激活函数，输出值为-1.5
+- C. 与使用L2正则相比，使用L1正则会使更多的参数值为0
+- D. softmax(X+c)的结果与softmax(X)的结果不一致，其中X是向量，c是常量
 
-解析：sigmoid的输出范围为(0,1)，不可能输出-0.2
+解析：SVM是一种判别式模型；tanh的取值范围为(-1,1); softmax(X+c)与softmax(X)的结果是一样的；
+答案选C
 
+1. 下面的描述不正确的是():
+- A. 采用CBOW训练词向量，是用周围词去预测中心词
+- B. word2vec采用了Hierarchical softmax方法，时间复杂度为$O(N)$
+- C. Glove利用词共现矩阵来训练词向量
+- D. fasttext引入了词内的n-gram信息
+
+解析：word2vec采用了Hierarchical softmax方法后，时间复杂度由$O(N)$降为$O(logN)$.
 答案选B
 
