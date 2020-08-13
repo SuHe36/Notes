@@ -1,3 +1,4 @@
+#! https://zhuanlan.zhihu.com/p/166385749
 # SVM算法总结
 本文是看了几个博客后，写的总结笔记。
 
@@ -254,7 +255,7 @@ $$\begin{aligned}
 到此，我们的目标函数最终就得到了，具体的参数更新方式，其实我们可以看到w和b都可以用$\alpha$ 来表示，所以其实更新参数时，主要是更新$\alpha$，具体的方法我们在后面在介绍。
 
 下面这个图,介绍了满足KKT条件时，点具体落在哪一部分。
-![](../../figure/78.png)
+![](../../figure/78.jpeg)
 
 
 ### 为什么要采用对偶函数来求解
@@ -369,6 +370,21 @@ $$f(x) = w^Tx+b = \sum_{i=1}^m\alpha_i y_ix_i^T + b$$
   - 若$\xi_i > 1$，则该样本点是分类错误点。
 
 
+## SMO算法
+具体的SMO算法的推导过程可以参考同级目录下的SMO-SVM.pdf文件，以及下面的两个博客。
+https://blog.csdn.net/luoshixian099/article/details/51227754
+https://www.cnblogs.com/jerrylead/archive/2011/03/18/1988419.html
+
+有时间再来总结一下吧。
+
+## Hinge Loss
+svm采用hinge loss当做损失函数：
+$$Hinge Loss=max(0, 1-yf(x))$$
+![](../../figure/85.png)
+
+也就是说当$yf(x)\geq 1$时，hinge loss为0，
+
+它的主要优势就是：**保持了支持向量机接的稀疏性，这是因为Hinge Loss的零区域对应的是非支持向量的普通样本，从而所有的普通样本不参与最终超平面的决定，这也正是支持向量机的最大的优势所在，对训练样本数目的依赖大大减少，而且提高了训练效率。**
 
 
 参考博客1：https://blog.csdn.net/sinat_20177327/article/details/79729551?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.compare&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.compare
