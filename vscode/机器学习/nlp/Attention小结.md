@@ -58,4 +58,23 @@ Hierarchical attention提出构建两个层次的attention mechanism，第一个
 
 得到句子级别的表示后，同样可以经过一个GRU，得到新的句子级别的表示，然后用上面同样的方法，计算一个对各个句子的一个attention分布，然后用这个attention分布与对应的句子向量相乘再相加，得到一个文档表示。
 
+### Synthesizer attention
+SYNTHESIZER: Rethinking Self-Attention in Transformer Models
 
+Transformer中采取的attention方式是quer-key-value的dot-product的方式，其核心就是单个token相对于序列中的其他token的重要性。
+
+本文对于这一做法提出了质疑，本文认为并不需要计算token-token之间的重要性，作者提出了一个Synthetic Attention。
+
+主要有两种:
+
+- dense synthesizer：生成的attention矩阵是由输入x经过两个dense层映射而来
+- random synthesizer：生成的attention矩阵是随机初始化得到的，然后在训练的过程中进行优化；
+作者还提出了将transformer attention和两种synthesizer attention糅合的方法，实验结果显示三种attention在机器翻译任务上相差不多，
+
+但是在对话生成任务上，synthesizer attention的效果要比transformer attention的效果好，而在finetune模式上，则是采取transformer attention的效果好。
+
+作者主要是提出了对于transformer attention这种采取token-token的方式计算attention的质疑，并用实验验证了结果，
+
+但是为什么这几种attention的效果有差异或者相似，作者并未给出说明。主要是对当前主流attention机制提出了探索和思考。
+
+![](../../figure/100.png)
