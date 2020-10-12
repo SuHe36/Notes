@@ -74,7 +74,7 @@ LCP任务会被划分成为两个子任务：
 最后词的复杂度分布：
 
 ![](../figure/103.png)
-
+ 
 
 
 ## Task2 Multilingual and Cross-lingual Word-in-Context Disambiguation(多语言和跨语言上的消歧)
@@ -83,7 +83,7 @@ LCP任务会被划分成为两个子任务：
 
 标签主要分为三种：
 - T: 两个单词表示的意思完全一致
-- R: 两个单词表示的意思相关，比如自动同名的（drink in the meaning of drink alcohol and in the meaning of drink a beverage）; 比如自动反义词的（citation in the meaning of award and its opposite meaning of penalty.奖励和惩罚的含义相反）
+- R: 两个单词表示的意思相关，比如一个词的一词多义现象还有互为反义词等，; 比如自动反义词的（citation in the meaning of award and its opposite meaning of penalty.奖励和惩罚的含义相反）这里要在多找几个例子。
 - F: 使用的是两个完全不同的意思。（比如race在competition中表示赛跑，参加比赛等，而在breed相关的文本中表示种族）
 
 本工作是延续2018年的Pilhevar的工作。2018年的WSD任务都是英语句子，并且只有T和F，没有R这个分类
@@ -95,10 +95,38 @@ MCL_WIC的特点：
 
 ，等待通过
 这个还没有发布数据，后续可以再看
+
+数据集分类两种，单语言的和混合语言的。
+![](../figure/108.png)
+
+.data结尾的文件中存储的数据格式如下：
+![](../figure/109.png)
+
+.gold结尾的文件存储的数据如下：
+![](../figure/110.png)
+
+
+### Evaluation
+对于每一个数据要输出一个标签,T/F/R。评估标准就是P/R/F1
+目前提供的数据都很少，每个文件下都只有20行数据
+
 ### 论文Wic: the word-in-context dataset for evaluation context-sensitive meaning representations
 
+提供的baseline参考论文中包括:
+- 2019,  Language Modelling Makes Sense: Propagating Representations throughWordNet for Full-Coverage Word Sense Disambiguation.
+- 2020, SensEmBERT: Context-Enhanced SenseEmbeddings for Multilingual Word Sense Disambiguation
 
 
+## 论文SensEmBert
+这里主要分三步走：
+- 1，context retrieval: 首先对于一个单词的一个词义，去BabelNet里面检索它的同义词，主要包括三个边, 上义词边、下义词边、语义相关边，然后对于每一个同义词集合，用一个Weighted Overlap方法确定每个集合的topk，然后将每个词对应的wikipage里的句子保留下来。
+- 2，word embedding：对于当前的词，它还有一个NASARI数据集，里面包含一些离散的词Ws，是对当前这个词的一些描述，然后对于context retrieval检索得到的句子，其中包含这些词Ws的句子就通过bert模型，然后对每一个包含这个词Ws的句子求均值，就得到了词Ws的最后表示，注意这里最后得到的是NASARI里面的词Ws的向量表示
+- 3, Sense Embedding：根据Ws在NASARI里面的排序，然后将每个Ws赋予一个权重，最后求得一个最终的向量表示，就是context embedding. 然后对于BabelNet里面的每个词的每个含义，把检索到的同义词放在他的前面，然后把这个新的句子输入到bert，最后取所有词的embedding的均值最为最后的Sense Gloss表示。那么最后的词的表示就是context embedding和Sense Gloss拼接在一起。
+
+整个的流程：
+![](../figure/110.png)
+
+WSD Model：作者是将包含这个词的句子输入到bert模型中，然后取这个词的bert模型的后四层的表示的均值，作为这个词的最终的context embedding，然后将这个context embedding（维度重复一遍）和我们前面训练得到的SensEmBert embedding计算相似度，其中相似度最高的就是这个词在当前句子的释义.所以这个模型就是判定在句子中的词是哪个释义
 
 ## task 3 Span-and Dependency based Multilingual and cross lingual semantic role labeling
 被删除了
@@ -155,6 +183,9 @@ https://github.com/boyuanzheng010/SemEval2021-Reading-Comprehension-of-Abstract-
 
 ![](../figure/107.png)
 
+这个没有提供baseline模型，但是可以将阅读理解的一些模型迁移到这个数据集上。
+
+这个数据集已经提供了
 
 ## Task6: Detection of Persuasive Techniques in Texts and Images - website coming soon!
 这个没有官网地址
@@ -174,7 +205,7 @@ https://github.com/boyuanzheng010/SemEval2021-Reading-Comprehension-of-Abstract-
 
 Task 1:
 - task 1a：判定一句话是humor还是offensive
-- task 1b：如果一句话被判定为humorHuozhe1offensive，那么他们humor和offensive的程度
+- task 1b：如果一句话被判定为humor或者offensive，那么他们humor和offensive的程度
 
 Task 2:
 使用标注数据时提供的关于人的年龄和性别
@@ -183,4 +214,81 @@ Task 2:
 
 评估标准：
 分类任务的评估标准是f值，回归任务的评估标准是均方根误差
+
+没有发布数据集论文，没有提供baseline，数据集目前只有60条数据
+
+![](../figure/112.png)
+
+
+## Task-8: MeasEval - Counts and Measurements(计数和测量)
+
+计数和测量是科学对话中的重要组成部分，从文中直接找到测量值是十分简单的，但是像"17 mg"这样单一的测量值并不能提供任何的信息。
+
+需要找到它在文中对应的测量对象。由于不同科学家的写作方式是不同的，所以这些信息对于测量的位置也可能有很大的不同。
+
+MeasEval是一个新的实体和语义提取关系任务，聚焦于找到count和measurement的属性(properties)、度量实体(measured entity)和度量上下文(measurement context)
+
+### Task List
+MeasEval由五个子任务组成。覆盖span extraction, classification, relation extraction等；
+给予一个科学文章：
+1. 识别文章中的所有Quantity(数量词)，特别是那些count和measurement，识别它们在text中的span
+2. 对于measurement，需要先确定它的单位；对于count和measurement，需要对他们进行分类，是属于count(计数)，range(范围), approximate(近似值), mean(均值)。
+3. 对于每一个count和measurement，识别他们的MeasuredEntity(测量的实体)【如果存在的话】；同样的识别他们的MeasuredProperty(测量的属性)【如果存在的话】
+4. 识别"Qualifiers"的位置，也就是那些可以帮助理解count和measurement的text的位置
+5. 在Quantity，MeasuredEntity, MeasuredProperty, Qualifier span之间建立关系链接，关系主要有：HasQuantity, HasProperty, Qualifies, 
+
+
+
+一个数据的格式：
+
+![](../figure/113.png)
+
+数据已经提供
+
+### Evaluation
+评估标准采取的是EM和F1，EM的计算方法就是如果生成的结果和gold完全一致就为1，否则为0.
+
+对于分类任务[2,5]的评估标注是P,R和F1，对于span text的任务[1,2,3,4]采取EM和F1，
+
+没有提供baseline模型，没有发布数据集论文
+
+
+
+### Task-9 Statement Verification and evidence finding with tables[验证表述和在表格中找到证据]
+
+
+对于一段statement，判断这个table是否支持这个statement，以及表格中的哪个cell支持这个statement.
+
+数据集论文:
+Statement Verification and Evidence Finding with Tables
+
+整个的数据形式是：
+![](../figure/114.png)
+ 
+
+整个任务有两个子任务：
+- SubtaskA:Does the table support the statement
+  - Fully support
+  - Refuted
+  - Unknown
+
+- SubtaskB: Which cells in the table provide the evidence to the statement
+  - Relevant
+  - Irrelevant
+  - Ambiguous
+
+对于任务b是对Table中的每个cell进行判断，决定他们属于哪个类别。
+
+![](../figure/115.png)
+![](../figure/116.png)
+
+
+数据中的table来源于开源的scientific articles,表格的数据格式是XML形式.
+
+statement的来源包括：自动生成的，对文章中的一些句子的改编，众包人工编写的。 最后每个statement都由一个标注人员验证质量。
+
+
+#### Evaluation
+subtask-A: P/R值，
+subtask-B: P/R值
 
