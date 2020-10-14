@@ -124,7 +124,7 @@ MCL_WIC的特点：
 - 3, Sense Embedding：根据Ws在NASARI里面的排序，然后将每个Ws赋予一个权重，最后求得一个最终的向量表示，就是context embedding. 然后对于BabelNet里面的每个词的每个含义，把检索到的同义词放在他的前面，然后把这个新的句子输入到bert，最后取所有词的embedding的均值最为最后的Sense Gloss表示。那么最后的词的表示就是context embedding和Sense Gloss拼接在一起。
 
 整个的流程：
-![](../figure/110.png)
+![](../figure/111.png)
 
 WSD Model：作者是将包含这个词的句子输入到bert模型中，然后取这个词的bert模型的后四层的表示的均值，作为这个词的最终的context embedding，然后将这个context embedding（维度重复一遍）和我们前面训练得到的SensEmBert embedding计算相似度，其中相似度最高的就是这个词在当前句子的释义.所以这个模型就是判定在句子中的词是哪个释义
 
@@ -292,3 +292,74 @@ statement的来源包括：自动生成的，对文章中的一些句子的改�
 subtask-A: P/R值，
 subtask-B: P/R值
 
+
+## Task10:Source-Free Domain Adaptation for Semantic Processing(在语义处理上的领域迁移)
+现实生活中很多数据存在着严格的共享标准，比如在临床医学中，患者的一些信息要求严格保密。
+这个任务要求参与开发一个语义注释系统。
+
+参与人员会给与一个在target domain（有注释的）训练过的模型，而不提供target domain的训练数据，然后给与一些没有label的target domain的数据。
+
+整个任务分为两类：
+- task A--negation detection(否定检测):需要参与者去鉴别一些临床医学事件，比如(disease, symptoms, procedures等)，判定它们在文中是否被否定。  比如句子:"Has no diarrhea and no new lumps or masses",其中由三个相关的医学词: diarrhea, lumps,masses,两个提示词:都是no， 然后三个实体都被否定。所以这个任务可以被认为是"span-in-context"分类任务，例如对于"diarrhea"这个事件，它的标准结果应该是"Has no <e> diarrhea </e> and no new lumps or masses."
+- task B--time expression recognition(时间表达识别)：时间表达识别任务要求参与者在文本中找到时间表达式子，这是一个序列标注任务，它使用SemEval 2018的task 6的时间粒度的数据。
+具体的case如下：
+![](../figure/117.png)
+
+
+所以这个任务就是总结为提供了一个在target domain上训练的模型-roberta，但是没有提供target domain的数据。
+然后作者提供了另一个domain的dev数据，在dev上验证domain adaptation的效果。
+
+评估标注: P, R, F1
+
+
+## Task11: NLPContributionGraph
+Structuring Scholarly NLP Contributions in the Open Research Knowledge Graph
+知识图谱的相关工作
+
+因为越来越多的论文出现，所以目前的研究人员面临着论文泛滥的问题，所以Open Research Knowledge Graph希望通过图将论文之间联系起来。
+
+通过将论文构建成如下的结构：
+1. Contribution sentences: 在论文中的一些关于contribution的句子
+2. Scientific terms and relations: 从contribution sentences中提取出的一些scientific terms和relation
+3. Triples：三元组，按照主语-谓语-对象的形式构建的知识图谱的RDF结构，将scientific term之间用relation联系起来，这些联系包括，ResearchProblem, Approach, Model, Code, Dataset, ExperimentalSetup, Hyperparameters, Baselines, Results, Tasks, Experiments, and AblationAnalysis
+
+
+下面是一个三阶段的例子：
+![](../figure/118.png)
+
+
+训练数据：
+- 提供从不同方向的论文，比如machine translation, named entity recongtion等中提取出的contribution sentences
+- 对于contribution sentences提供带有标记的phrase
+- 对于句中的实体，用那12个信息链接构建的三元组
+
+dev数据：
+- 其他的论文中选取的句子等，与训练数据一致
+
+测试数据：
+- 将会提供没有标注的contribution sentences
+
+
+主要有两个任务需要进行评估：
+- Phrase extraction test: 测试提取出的科学术语和谓词短语
+- Triple extraction test: 测试生成的三元组
+
+评估标注都是P,R,F1
+提供了脚本
+
+
+## Task12: Learning with Disagreements(分歧学习)
+
+现在的人工智能方面的研究需要大量的由人类标注的数据，几乎所有的标注都认为对一个样本只有一个标注结果。
+
+在很多的项目中，不同的人可能有不同的标注结果，比如指代消解、单词词义消歧、词性标注、情感分析、图像分类、自然语言推论等。
+
+这个任务的目的是提供一个统一的测试框架，使用对于同一样本具有不同标注结果的数据集训练模型，从分歧中进行学习，然后测试模型效果。
+
+包含6个子任务
+
+评估指标：
+- F1值：如果模型预测的结果和首选的gold result一致，那么就判定是对的。
+- Cross entropy: 将模型预测的label概率和人类标注的标签分布算一个交叉熵
+
+最后，最优的模型应该是有高的F1值，低的交叉熵
