@@ -51,3 +51,8 @@ public static Comparator<person> cperson = new Comparator<person>() {
 
 Queue<person> priorityQueue = new PriorityQueue<>(100,cperson);
 ```
+
+
+
+还有这种Java8的方法：
+`Queue<ListNode> queue = new PriorityQueue<>((v1,v2)->v1.val-v2.val)`
