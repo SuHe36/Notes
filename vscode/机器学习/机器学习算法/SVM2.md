@@ -387,6 +387,22 @@ $$Hinge Loss=max(0, 1-yf(x))$$
 它的主要优势就是：**保持了支持向量机接的稀疏性，这是因为Hinge Loss的零区域对应的是非支持向量的普通样本，从而所有的普通样本不参与最终超平面的决定，这也正是支持向量机的最大的优势所在，对训练样本数目的依赖大大减少，而且提高了训练效率。**
 
 
+## 一些常见的问题
+### SVM为什么要从原始问题变为对偶问题
+- 1，对偶问题能将原始问题中的不等式约束转换为对偶问题中的等式约束
+- 2，方便核函数的引入
+- 3，改变了问题的复杂度，由求特征向量w转化为求比例系数$\alpha$，在原始问题下，求解的复杂度与w的维度有关，在对偶问题下，只与样本的数量有关
+
+### SVM中的参数C的作用
+SVM中的参数C主要是在soft-margin SVM中用到的，因为数据中可能存在一些噪声，所以将目标函数变成了:
+$$\begin{aligned}
+    &\min_{w,b} \frac{1}{2}||w||^2 + C\sum_{i=1}^m \xi_i, \\
+    & s.t. \quad y_i(w^Tx_i+b) \geq 1-\xi, \quad i=1,...,m \\
+    &s.t. \quad \xi \geq 0
+\end{aligned}$$
+- 那么当C值越大，也就是对错误样本的惩罚越大，极端情况就是不允许分类误差样本的存在，那么分类间隔相应的就会变小；
+- 当C值趋近于0时，也就是不再关注样本分类是否正确，只希望w越小越好，即分类间隔越大越好，这样就会有很多错误分类的样本，模型趋于欠学习
+
 参考博客1：https://blog.csdn.net/sinat_20177327/article/details/79729551?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.compare&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-1.compare
 
 参考博客2：https://blog.csdn.net/lch614730/article/details/17069053
