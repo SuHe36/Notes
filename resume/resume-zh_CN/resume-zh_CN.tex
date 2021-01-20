@@ -1,0 +1,97 @@
+% !TEX TS-program = xelatex
+% !TEX encoding = UTF-8 Unicode
+% !Mode:: "TeX:UTF-8"
+
+\documentclass{resume}
+\usepackage{zh_CN-Adobefonts_external} % Simplified Chinese Support using external fonts (./fonts/zh_CN-Adobe/)
+% \usepackage{NotoSansSC_external}
+% \usepackage{NotoSerifCJKsc_external}
+% \usepackage{zh_CN-Adobefonts_internal} % Simplified Chinese Support using system fonts
+\usepackage{linespacing_fix} % disable extra space before next section
+\usepackage{cite}
+
+\begin{document}
+\pagenumbering{gobble} % suppress displaying page number
+
+\name{何苏}
+
+\basicInfo{
+  \email{hesu@pku.edu.cn} \textperiodcentered\ 
+  \phone{(+86) 13031037678} \textperiodcentered }
+ 
+%\vspace{-1ex}
+
+\section{\faGraduationCap\  教育背景}
+\datedsubsection{\textbf{北京大学} \qquad \quad \textbf{硕士} \qquad \textbf{软件与微电子学院} }{2016.09 -- 2019.06}
+\datedsubsection{\textbf{北京邮电大学} \quad \textbf{本科} \qquad \textbf{计算机学院} }{2012.09 -- 2016.06}
+
+%\datedsubsection{\textbf{中国科学院计算技术研究所(保送)}~~ \ 硕士, 计算机软件与理论, 排名: 5\%}{2014 -- 2017}
+
+\vspace{1ex}
+
+\section{\faUsers\ 工作/实习经历}
+\datedsubsection{\textbf{猿辅导} \qquad \textbf{AI Lab} \qquad 深度学习研发工程师 }{2019.07 -- 至今}
+
+\textbf{语法纠错任务}
+\begin{itemize}
+  \item 使用多步finetune，序列标注的方法来解决语法纠错任务;
+  \item 使用分类模型识别错误片段，再用生成模型进行纠错等;
+  \item 采用词频、PMI特征建图，在生成模型的encoder端引入GCN等;
+  \item 在公开数据集Conll-2014上达到SOAT的效果.
+\end{itemize}
+
+\vspace{0.1cm}
+
+\textbf{中文错别字识别项目}
+\begin{itemize}
+  \item 采用bert+dense的结构进行序列标注;
+  \item 使用腐化操作，随机插入、删除、替换产生更多数据;
+  \item 最终准确率达到97\%，召回率达到72\%;
+\end{itemize}
+\vspace{0.1cm}
+
+\textbf{文本风格转换任务}
+\begin{itemize}
+  \item 采用反向翻译，改写target端语句等方式进行数据增强实验;
+  \item 将GPT2的单encoder结构改写成双encoder结构;
+  \item 引入copyNet机制，以及加入Adapter层，用语言模型进行rerank等；
+  \item 在公开数据集GYAFC上达到SOAT的效果，并产出论文一篇.
+\end{itemize}
+
+\datedsubsection{\textbf{科大讯飞} \qquad \textbf{哈工大讯飞联合实验室} \quad nlp算法实习生 }{2017.08 -- 2018.10}
+\vspace{0.1cm}
+
+\textbf{选择题阅读理解项目}
+\begin{itemize}
+  \item 将问题和候选项拼接，去外部知识库中检索相关语句;
+  \item 搭建模型计算候选项之间，问题和外部知识语句之间的attention等;
+  \item 在ARC数据集上达到SOAT效果;
+\end{itemize}
+\vspace{0.1cm}
+
+\textbf{智能客服项目}
+\begin{itemize}
+  \item 拒答模块：搭建二分类模型，判别用户提出的问题是否给与回答，最终准确率为98\%;
+  \item 搜索浏览模块：对于用户提出的问题，从511个文档中找到相应的文档，最终准确率为86\%;
+  \item 内容详情模块：从文档中，检索出连续的句子回答问题，最终准确率为91\%;
+\end{itemize}
+\vspace{0.1cm}
+
+\textbf{多轮对话项目}
+\begin{itemize}
+  \item 将内容详情模型迁移到ubuntu/doban对话数据集上;
+  \item 采用SGD微调，多模型融合等，在douban数据集上达到SOAT效果;
+\end{itemize}
+
+
+
+
+\section{\faCogs\ 自我评价}
+% increase linespacing [parsep=0.5ex]
+对于nlp任务中的语法纠错、文本风格转换、阅读理解等任务有一定的了解，有一定的论文阅读量。能快速针对特定场景需求搭建模型，并迭代优化。
+具有良好的团队沟通能力，有良好的抗压能力。
+%% Reference
+%\newpage
+%\bibliographystyle{IEEETran}
+%\bibliography{mycite}
+\end{document}
