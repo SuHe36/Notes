@@ -37,7 +37,7 @@
   \item 使用多步finetune，序列标注的方法来解决语法纠错任务;
   \item 使用分类模型识别错误片段，再用生成模型进行纠错等;
   \item 采用词频、PMI特征建图，在生成模型的encoder端引入GCN等;
-  \item 在公开数据集Conll-2014上达到SOAT的效果.
+  \item 在公开数据集Conll-2014上达到SOTA的效果.
 \end{itemize}
 
 \vspace{0.1cm}
@@ -45,27 +45,27 @@
 \textbf{中文错别字识别项目}
 \begin{itemize}
   \item 采用bert+dense的结构进行序列标注;
-  \item 使用腐化操作，随机插入、删除、替换产生更多数据;
+  \item 使用腐化操作，随机插入、删除、替换等产生更多数据;
   \item 最终准确率达到97\%，召回率达到72\%;
 \end{itemize}
 \vspace{0.1cm}
 
 \textbf{文本风格转换任务}
 \begin{itemize}
-  \item 采用反向翻译，改写target端语句等方式进行数据增强实验;
-  \item 将GPT2的单encoder结构改写成双encoder结构;
-  \item 引入copyNet机制，以及加入Adapter层，用语言模型进行rerank等；
-  \item 在公开数据集GYAFC上达到SOAT的效果，并产出论文一篇.
+  \item 采用反向翻译，回译，改写target端语句等方式进行数据增强实验;
+  \item 搭建双encoder，单deocder的模型，并用GPT2进行参数初始化;
+  \item 引入CopyNet机制，以及加入Adapter层，用语言模型进行rerank等;
+  \item 在公开数据集GYAFC上达到SOTA的效果，并产出论文一篇;
 \end{itemize}
 
-\datedsubsection{\textbf{科大讯飞} \qquad \textbf{哈工大讯飞联合实验室} \quad nlp算法实习生 }{2017.08 -- 2018.10}
+\datedsubsection{\textbf{科大讯飞} \qquad \textbf{哈工大讯飞联合实验室} \quad nlp算法实习生 }{2017.09 -- 2018.10}
 \vspace{0.1cm}
 
 \textbf{选择题阅读理解项目}
 \begin{itemize}
   \item 将问题和候选项拼接，去外部知识库中检索相关语句;
   \item 搭建模型计算候选项之间，问题和外部知识语句之间的attention等;
-  \item 在ARC数据集上达到SOAT效果;
+  \item 在ARC数据集上达到SOTA效果;
 \end{itemize}
 \vspace{0.1cm}
 
@@ -80,7 +80,7 @@
 \textbf{多轮对话项目}
 \begin{itemize}
   \item 将内容详情模型迁移到ubuntu/doban对话数据集上;
-  \item 采用SGD微调，多模型融合等，在douban数据集上达到SOAT效果;
+  \item 采用SGD微调，多模型融合等，在douban数据集上达到SOTA效果;
 \end{itemize}
 
 
@@ -88,7 +88,7 @@
 
 \section{\faCogs\ 自我评价}
 % increase linespacing [parsep=0.5ex]
-对于nlp任务中的语法纠错、文本风格转换、阅读理解等任务有一定的了解，有一定的论文阅读量。能快速针对特定场景需求搭建模型，并迭代优化。
+对于nlp任务中的语法纠错、文本风格转换、阅读理解等任务有一定的了解，有一定的论文阅读量。能针对特定需求场景快速搭建模型，并迭代优化。
 具有良好的团队沟通能力，有良好的抗压能力。
 %% Reference
 %\newpage
