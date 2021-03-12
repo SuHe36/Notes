@@ -123,7 +123,7 @@ $$p(x|\pi,\mu,\sum) = \sum_{k=1}^K \pi_k N(x|\mu_k, \sum_k) \tag{6}$$
 具体的推导过程参考
 https://blog.csdn.net/jinping_shi/article/details/59613054
 
-## EM算法推导GMM参数的具体过程
+## EM（Expectation-Maximum）算法推导GMM参数的具体过程
 1, 定义分量数目K, 对每个分量k设置$\pi_k，\mu_k和\sum_k$的初始值，然后计算(6)式的对数似然函数。
 2， **E step**
 
